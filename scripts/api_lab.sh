@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+IFS=$'\n\t'
 mkdir -p data logs
 #log function
 logIT() { 
@@ -10,6 +11,8 @@ cleanUP() {
     logIT "LAB3_END"
 }
 
+#Lab Start
+logIT "LAB3_START"
 trap cleanUP EXIT
 #requirements check
 if ! command -v curl; then
@@ -59,5 +62,5 @@ else
 fi
 
 jq -r '.cards[] | "\(.value) of \(.suit)"' data/deck_draw.json > data/deck_summary.txt
-echo "Cards remAining: $(jq -r '.remaining' data/deck_draw.json)" >> data/deck_summary.txt
+echo "Cards remaining: $(jq -r '.remaining' data/deck_draw.json)" >> data/deck_summary.txt
 logIT "JQ_DECK_OK"
